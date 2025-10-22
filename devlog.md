@@ -7,3 +7,6 @@
 ## To begin this project I need to find what to import so the functions can operate as intended, so I need to research Haskell imports. I also need to take the racket code provided by the professor and make it into Haskell code so I can identify the mode. In this session, I plan to accomplish these two things, as well as get started on a function to take user input.
 
 ## End of session update at 4:48 PM: Added imports that should be relevant (getArgs helps read command line args, readMaybe converts strings to numbers, isSpace and isDigit help with checking character types). Added equivalent Haskell code to define interactive. I have accomplished my goal for today to get started on this program and will further develop runCalc next session.
+
+# 10-22-2025 1:39 PM
+## For this session, I plan to complete the function that takes the user input, as well work on the function that processes the expressions and operands.
