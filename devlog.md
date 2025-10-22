@@ -10,3 +10,5 @@
 
 # 10-22-2025 1:39 PM
 ## For this session, I plan to complete the function that takes the user input, as well work on the function that processes the expressions and operands.
+
+## End of session update at 3:44 PM: Added method to take user input. Started on function to evaluate expression. Have not run into a major problem yet, except that I don't know yet how I will program handling history references in operations, so I might need to do some more research for that. Next session I shall work more on that as well as parsing history references.
