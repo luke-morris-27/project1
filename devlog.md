@@ -17,3 +17,10 @@
 ## For this session I am going to create the function that evalutates prefix expressions. I've written some notes and examples on the format of prefix to keep alongside me as I work on this part. I believe recursion may be the best way to implement this method so I can apply it to the next elements after the operand continuously.
 
 ## End of session update at 11:30 PM: I have added the function that evaluates prefix expressions using recursion. It defers to two other function to perform the necessary operations depending on what expression it reads. It currently utilizes a yet-to-be-made function that I intend to make to evaluate operands and tokens, like multiplication or addition, in prefix. I added a function to parse references to the history as well, detecting strings that are [$digits]. I need to test this function on a great number of combinations of test inputs to ensure it works correctly. Next I will make the function that evaluates operands.
+
+# 10-23-8:43 AM
+## For this session I am going to make the function to evaluate operands so the expression evaluating function works properly. It should recursively process two operands plus a function like + or - in prefix.
+
+## Mid-session update: getting some syntax errors regarding my use of parenthesis. I will go over the rules regarding these in Haskell to resolve these issues. Some of these errors also are a result of the indentation within the code and how it is interpreted.
+
+## End of session update at 11:52 AM: Finished function to evaluate operands and have resolved some errors deriving from indentation, as well as an error in parseHistory that derived from me using one _ instead of two like _ _ , thus giving inconsistent num of arguments for parseHistory. Next session I will resolve all other errors and begin testing the code with many different inputs and history references.
