@@ -33,4 +33,24 @@ runCalc interactive history = do
 
 evalExpr :: [String] -> [Double] -> Either String (Double, [String])
 evalExpr [] _ = Left "Invalid Expression"
+evalExpr (tok:rest) history
+  | tok == "+" = evalOp (+) rest history
+  | tok == "-" = evalOp (-) rest history
+  | tok == "*" = evalOp (*) rest history
+  | tok == "/" = evalOp (/) rest history
+  | "$" 'prefixOf' tok = case parseHistory tok history of
+    Just val -> Right (val, rest)
+    Nothing -> Left "Invalid history reference"
+  | other = case read tok :: Maybe Double of
+    Just num -> Right (num, rest)
+    Nothing -> Left "Invalid Token"
+
+parseHistory :: String -> [Double] -> Maybe Double
+parseHistory ('$':digits) history
+  | all isDigit digits =
+    let index = read digits - 1
+    in if index >= 0 && index < length history
+      then Just (history !! index)
+      else Nothing
+parseHistory _ = Nothing
  
