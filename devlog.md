@@ -28,4 +28,9 @@
 # 10-23-2025 8:09 PM
 ## For this session I am resolving all errors from my function and then testing the codes functionality on a large amount of test cases.
 
-## End-session update 11:00 PM: I believe I have gotten the errors out of my code, many of them stemming from indentation. After realizing in my testing that division by zero was not explicitly prohibited, I also added a new function specifically to evaluate division operations, so that I can give division by zero error. Tomorrow I will finish all the testing and turn in this project.
+## End of session update 11:00 PM: I believe I have gotten the errors out of my code, many of them stemming from indentation. After realizing in my testing that division by zero was not explicitly prohibited, I also added a new function specifically to evaluate division operations, so that I can give division by zero error. Tomorrow I will finish all the testing and turn in this project.
+
+# 10-24-2025 2:31 PM
+## For this session I will finish all my testing and turn in the project.
+
+## End of session update 6:50 PM: I have finished compiling the code and I have tested thouroughly. I did have to readjust the code for runCalc because batch mode was not working properly (it was still displaying the 1: , 2: , etc. before each line). I will now turn in the project.
