@@ -39,22 +39,24 @@ evalExpr (tok:rest) history
   | tok == "+" = evalOp (+) rest history
   | tok == "-" = evalOp (-) rest history
   | tok == "*" = evalOp (*) rest history
-  | tok == "/" = evalOp (/) rest history
+  | tok == "/" = evalOpSafe (/) rest history
   | "$" `isPrefixOf` tok =
         case parseHistory tok history of
             Just val -> Right (val, rest)
             Nothing  -> Left "Invalid History Reference"
-  | otherwise = case read tok :: Maybe Double of
-    Just num -> Right (num, rest)
-    Nothing -> Left "Invalid Token"
+  | otherwise =
+        case readMaybe tok :: Maybe Double of
+            Just num -> Right (num, rest)
+            Nothing  -> Left "Invalid Token"
 
 parseHistory :: String -> [Double] -> Maybe Double
 parseHistory ('$':digits) history
-  | all isDigit digits =
-    let index = read digits - 1
-    in if index >= 0 && index < length history
-      then Just (history !! index)
-      else Nothing
+    | all isDigit digits =
+        let idx = (read digits :: Int) - 1
+        in if idx >= 0 && idx < length history
+            then Just (history !! idx)
+            else Nothing
+    | otherwise = Nothing
 parseHistory _ _ = Nothing
 
 evalOp :: (Double -> Double -> Double) -> [String] -> [Double]
@@ -63,3 +65,12 @@ evalOp f tokens history = do
   (a, rest1) <- evalExpr tokens history
   (b, rest2) <- evalExpr rest1 history
   Right (f a b, rest2)
+  
+evalOpSafe :: (Double -> Double -> Double) -> [String] -> [Double]
+            -> Either String (Double, [String])
+evalOpSafe f tokens history = do
+    (a, rest1) <- evalExpr tokens history
+    (b, rest2) <- evalExpr rest1 history
+    if b == 0
+        then Left "Division by zero"
+        else Right (f a b, rest2)
