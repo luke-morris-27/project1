@@ -25,13 +25,22 @@ runCalc interactive history = do
     else do
       let tokens = words line
       case evalExpr tokens history of
-        Left err -> putStrLn $ "Error: " ++ err
+        Left err -> do
+          putStrLn ("Error: " ++ err)
+          runCalc interactive history
         Right (result, []) -> do
           let newID = length history + 1
-          putStrLn $ show newID ++ ": " ++ show (realToFrac result :: Double)
+          if interactive
+            then do
+              putStrLn (show newID ++ ": " ++ show (realToFrac result :: Double))
+            else do
+              putStrLn (show (realToFrac result :: Double))
           runCalc interactive (history ++ [result])
         Right (_, leftover) ->
           putStrLn "Error: Invalid Expression" >> runCalc interactive history
+
+
+-- Function to evaluate prefix expressions
 
 evalExpr :: [String] -> [Double] -> Either String (Double, [String])
 evalExpr [] _ = Left "Error: Invalid Expression"
@@ -39,7 +48,7 @@ evalExpr (tok:rest) history
   | tok == "+" = evalOp (+) rest history
   | tok == "-" = evalOp (-) rest history
   | tok == "*" = evalOp (*) rest history
-  | tok == "/" = evalOpSafe (/) rest history
+  | tok == "/" = evalDiv (/) rest history
   | "$" `isPrefixOf` tok =
         case parseHistory tok history of
             Just val -> Right (val, rest)
@@ -49,15 +58,19 @@ evalExpr (tok:rest) history
             Just num -> Right (num, rest)
             Nothing  -> Left "Error: Invalid Token"
 
+-- Parse history references
+
 parseHistory :: String -> [Double] -> Maybe Double
 parseHistory ('$':digits) history
     | all isDigit digits =
-        let idx = (read digits :: Int) - 1
-        in if idx >= 0 && idx < length history
-            then Just (history !! idx)
+        let index = (read digits :: Int) - 1
+        in if index >= 0 && index < length history
+            then Just (history !! index)
             else Nothing
     | otherwise = Nothing
 parseHistory _ _ = Nothing
+
+-- Evaluate operators +, -, *
 
 evalOp :: (Double -> Double -> Double) -> [String] -> [Double]
   -> Either String (Double, [String])
@@ -66,9 +79,11 @@ evalOp f tokens history = do
   (b, rest2) <- evalExpr rest1 history
   Right (f a b, rest2)
   
-evalOpSafe :: (Double -> Double -> Double) -> [String] -> [Double]
+-- Evaluate operation /, must be seperate function to account for division by 0
+  
+evalDiv :: (Double -> Double -> Double) -> [String] -> [Double]
             -> Either String (Double, [String])
-evalOpSafe f tokens history = do
+evalDiv f tokens history = do
     (a, rest1) <- evalExpr tokens history
     (b, rest2) <- evalExpr rest1 history
     if b == 0
