@@ -6,7 +6,7 @@
 # 10-20-2025 4:09 PM
 ## To begin this project I need to find what to import so the functions can operate as intended, so I need to research Haskell imports. I also need to take the racket code provided by the professor and make it into Haskell code so I can identify the mode. In this session, I plan to accomplish these two things, as well as get started on a function to take user input.
 
-## End of session update at 4:48 PM: Added imports that should be relevant (getArgs helps read command line args, readMaybe converts strings to numbers, isSpace and isDigit help with checking character types). Added equivalent Haskell code to define interactive. I have accomplished my goal for today to get started on this program and will further develop runCalc next session.
+## End of session update at 4:48 PM: Added imports that should be relevant (getArgs helps read command line args, readMaybe converts strings to numbers, isSpace and isDigit help with checking character types). Added equivalent Haskell code to define interactive, and I have created code to account for the presence of a -b or --batch flag. I have accomplished my goal for today to get started on this program and will further develop runCalc next session.
 
 # 10-22-2025 1:39 PM
 ## For this session, I plan to complete the function that takes the user input, as well work on the function that processes the expressions and operands.
@@ -18,9 +18,14 @@
 
 ## End of session update at 11:30 PM: I have added the function that evaluates prefix expressions using recursion. It defers to two other function to perform the necessary operations depending on what expression it reads. It currently utilizes a yet-to-be-made function that I intend to make to evaluate operands and tokens, like multiplication or addition, in prefix. I added a function to parse references to the history as well, detecting strings that are [$digits]. I need to test this function on a great number of combinations of test inputs to ensure it works correctly. Next I will make the function that evaluates operands.
 
-# 10-23-8:43 AM
+# 10-23-2025 8:43 AM
 ## For this session I am going to make the function to evaluate operands so the expression evaluating function works properly. It should recursively process two operands plus a function like + or - in prefix.
 
 ## Mid-session update: getting some syntax errors regarding my use of parenthesis. I will go over the rules regarding these in Haskell to resolve these issues. Some of these errors also are a result of the indentation within the code and how it is interpreted.
 
 ## End of session update at 11:52 AM: Finished function to evaluate operands and have resolved some errors deriving from indentation, as well as an error in parseHistory that derived from me using one _ instead of two like _ _ , thus giving inconsistent num of arguments for parseHistory. Next session I will resolve all other errors and begin testing the code with many different inputs and history references.
+
+# 10-23-2025 8:09 PM
+## For this session I am resolving all errors from my function and then testing the codes functionality on a large amount of test cases.
+
+## End-session update 11:00 PM: I believe I have gotten the errors out of my code, many of them stemming from indentation. After realizing in my testing that division by zero was not explicitly prohibited, I also added a new function specifically to evaluate division operations, so that I can give division by zero error. Tomorrow I will finish all the testing and turn in this project.
