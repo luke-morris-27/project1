@@ -34,7 +34,7 @@ runCalc interactive history = do
           putStrLn "Error: Invalid Expression" >> runCalc interactive history
 
 evalExpr :: [String] -> [Double] -> Either String (Double, [String])
-evalExpr [] _ = Left "Invalid Expression"
+evalExpr [] _ = Left "Error: Invalid Expression"
 evalExpr (tok:rest) history
   | tok == "+" = evalOp (+) rest history
   | tok == "-" = evalOp (-) rest history
@@ -43,11 +43,11 @@ evalExpr (tok:rest) history
   | "$" `isPrefixOf` tok =
         case parseHistory tok history of
             Just val -> Right (val, rest)
-            Nothing  -> Left "Invalid History Reference"
+            Nothing  -> Left "Error: Invalid History Reference"
   | otherwise =
         case readMaybe tok :: Maybe Double of
             Just num -> Right (num, rest)
-            Nothing  -> Left "Invalid Token"
+            Nothing  -> Left "Error: Invalid Token"
 
 parseHistory :: String -> [Double] -> Maybe Double
 parseHistory ('$':digits) history
@@ -72,5 +72,5 @@ evalOpSafe f tokens history = do
     (a, rest1) <- evalExpr tokens history
     (b, rest2) <- evalExpr rest1 history
     if b == 0
-        then Left "Division by zero"
+        then Left "Error: Division by zero"
         else Right (f a b, rest2)
