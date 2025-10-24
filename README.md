@@ -13,4 +13,8 @@ Then, run
 
 ghc prefix.hs -o calc.exe
 
-Then, it can be run with .\calc.exe or .\calc.exe -b
+Then, the program can be run with .\calc.exe or .\calc.exe -b
+
+When giving input to the program, it must be a valid prefix expression with spaces in between the characters, like + 1 2
+Press enter to get result of expression. Use $ to use history references, e.g. $2 is the 2nd value in history.
+Type quit to end program. -b and --batch activate batch mode.
